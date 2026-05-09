@@ -1,0 +1,20 @@
+{
+  "name": "xiyue-reader",
+  "version": "1.0.0",
+  "description": "Novel Reader - 支持 EPUB/TXT/PDF 小说阅读器",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.0",
+    "epubjs": "^0.3.93",
+    "pdfjs-dist": "^4.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.0.0"
+  }
+}
