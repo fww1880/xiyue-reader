@@ -1,0 +1,16 @@
+import os
+novel_reader_dir = os.path.join(os.getcwd(), 'novel_reader')
+main_file = os.path.join(novel_reader_dir, 'main.py')
+with open(main_file, 'r', encoding='utf-8') as f:
+    content = f.read()
+print("📊 最终书签代码健康检查：")
+print(f"  self.bookmark_list 引用: {content.count('self.bookmark_list')} 次")
+print(f"  self.bookmarks 引用: {content.count('self.bookmarks')} 次")
+print(f"  add_bookmark 方法数: {content.count('def add_bookmark')} 个")
+print(f"  show_bookmark_list 方法数: {content.count('def show_bookmark_list')} 个")
+print(f"  refresh_bookmark_list 方法数: {content.count('def refresh_bookmark_list')} 个")
+print(f"  export_notes 引用: {content.count('export_notes')} 次")
+print(f"  show_about 引用: {content.count('show_about')} 次")
+print(f"  load_settings 方法: {'✅存在' if 'def load_settings' in content else '❌不存在'}")
+print(f"  工具栏书签绑定: {'✅已绑定' if 'list_bm_action.triggered.connect' in content else '❌未绑定'}")
+print(f"  书架面板书签控件: {'✅存在' if 'bm_label' in content and 'bm_list_widget' in content else '❌不存在'}")
