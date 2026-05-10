@@ -1,4 +1,8 @@
-name: Build Android APK
+import os
+base_dir = r'C:\Users\86139\aipywork\CapEwGvvipaKTj79zEPUj'
+action_path = os.path.join(base_dir, '.github', 'workflows', 'build-android.yml')
+print("🔧 最终修复 GitHub Action 配置...")
+new_yml = """name: Build Android APK
 on:
   push:
     branches: [ main, master ]
@@ -52,3 +56,20 @@ jobs:
           name: xiyue-apk
           path: android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
+"""
+with open(action_path, 'w', encoding='utf-8') as f:
+    f.write(new_yml)
+print("✅ Action 配置已更新！")
+print("📋 关键修复：在 cap add android 之前先删除旧的 android 目录")
+import subprocess
+print("\n🚀 提交并推送（包括生成的 android 项目文件）...")
+subprocess.run(['git', 'add', '.'], cwd=base_dir, capture_output=True)
+res = subprocess.run(['git', 'commit', '-m', 'Fix: remove old android dir before adding platform'], cwd=base_dir, capture_output=True, text=True)
+print(f"Commit: {res.stdout.strip()}")
+push = subprocess.run(['git', 'push'], cwd=base_dir, capture_output=True, text=True)
+if push.returncode == 0:
+    print("\n🎉🎉🎉 所有文件已推送！GitHub Action 将自动重新运行！")
+    print("🔗 查看进度: https://github.com/fww1880/xiyue-reader/actions")
+    print("\n💡 这次应该能成功了！Android 项目文件已包含在仓库中")
+else:
+    print(f"\n⚠️ 推送失败: {push.stderr}")

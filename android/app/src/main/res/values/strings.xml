@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">XiyueReader</string>
+    <string name="title_activity_main">XiyueReader</string>
+    <string name="package_name">org.novalreader.xiyue</string>
+    <string name="custom_url_scheme">org.novalreader.xiyue</string>
+</resources>
