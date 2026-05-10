@@ -9,5 +9,15 @@
     "allowNavigation": [
       "*"
     ]
+  },
+  "plugins": {
+    "Filesystem": {
+      "allowRead": [
+        "**"
+      ],
+      "allowWrite": [
+        "**"
+      ]
+    }
   }
 }
