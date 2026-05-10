@@ -22,18 +22,22 @@ jobs:
         run: npm ci
       - name: Build Vue project
         run: npm run build
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
       - name: Install Capacitor
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-      - name: Initialize Capacitor Android
+      - name: Initialize Capacitor and add Android
         run: |
-          npx cap init 喜阅阅读器 org.novalreader.xiyue --web-dir dist
-      - name: Add Android platform
-        run: |
+          npx cap init 喜阅阅读器 org.novalreader.xiyue --web-dir dist --no-git
           npx cap add android
       - name: Sync Capacitor
-        run: |
-          npx cap sync android
+        run: npx cap sync android
       - name: Build Android APK
         run: |
           cd android && chmod +x gradlew && ./gradlew assembleDebug
