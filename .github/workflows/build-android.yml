@@ -29,20 +29,10 @@ jobs:
           java-version: '17'
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-      - name: Install Capacitor
+      - name: Sync Capacitor (copy web assets to android)
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-      - name: Initialize Capacitor
-        run: |
-          npx cap init XiyueReader org.novalreader.xiyue --web-dir dist
-      - name: Remove old android dir if exists
-        run: |
-          if [ -d "android" ]; then rm -rf android; fi
-      - name: Add Android Platform
-        run: |
-          npx cap add android
-      - name: Sync Capacitor
-        run: npx cap sync android
+          npx cap sync android
       - name: Build Android APK
         run: |
           cd android && chmod +x gradlew && ./gradlew assembleDebug
