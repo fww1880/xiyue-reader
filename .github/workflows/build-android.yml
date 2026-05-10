@@ -32,10 +32,12 @@ jobs:
       - name: Install Capacitor
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-      - name: Initialize Capacitor and add Android
+      - name: Initialize Capacitor
         run: |
-          npx cap init 喜阅阅读器 org.novalreader.xiyue --web-dir dist --no-git
-          npx cap add android
+          npx cap init "XiyueReader" "org.novalreader.xiyue" --web-dir dist --force
+      - name: Add Android Platform
+        run: |
+          npx cap add android --force
       - name: Sync Capacitor
         run: npx cap sync android
       - name: Build Android APK
