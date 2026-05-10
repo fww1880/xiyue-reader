@@ -5,18 +5,22 @@ on:
   pull_request:
     branches: [ main, master ]
   workflow_dispatch:
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # 消除 Node.js 20 警告
 jobs:
   build-apk:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        
       - name: Use Buildozer action
         uses: ArtemSBulgakov/buildozer-action@v1
         id: buildozer
         with:
           workdir: .
-          build_mode: debug
+          # 默认就是 debug 模式，不需要 build_mode 参数
+          # buildozer_version: '1.5.0'  # 可选指定版本
           
       - name: Upload APK
         uses: actions/upload-artifact@v4
