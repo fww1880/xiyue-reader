@@ -1,0 +1,9 @@
+{
+  "appId": "org.novalreader.xiyue",
+  "appName": "\u559c\u9605\u9605\u8bfb\u5668",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

@@ -6,25 +6,40 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # 消除 Node.js 20 警告
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 jobs:
   build-apk:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
-      - name: Use Buildozer action
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          workdir: .
-          # 默认就是 debug 模式，不需要 build_mode 参数
-          # buildozer_version: '1.5.0'  # 可选指定版本
-          
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Vue project
+        run: npm run build
+      - name: Install Capacitor
+        run: |
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+      - name: Initialize Capacitor Android
+        run: |
+          npx cap init 喜阅阅读器 org.novalreader.xiyue --web-dir dist
+      - name: Add Android platform
+        run: |
+          npx cap add android
+      - name: Sync Capacitor
+        run: |
+          npx cap sync android
+      - name: Build Android APK
+        run: |
+          cd android && chmod +x gradlew && ./gradlew assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: xiyue-apk
-          path: ${{ steps.buildozer.outputs.apk_path }}
+          path: android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
